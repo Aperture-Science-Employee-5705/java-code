@@ -1,0 +1,6 @@
+
+nick:a;0,1,0
+jess:a;0,0,0
+fin:b;0,0,0
+ellis:a;0,0,0
+gil:c;0,0,0
