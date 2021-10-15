@@ -1,0 +1,10 @@
+sudaaituk|elf|18|30|60|10
+eleldai-el-za|barbarian|21|70|20|50
+guhöguh-uda-u|elf|19|30|60|10
+ao-daa|dragon|14|90|40|50
+lograrlogfulog|elf|8|30|60|10
+guhocrenutuk-tuk|elf|6|30|60|10
+eaenidadan|barbarian|8|70|20|50
+setukkarguhe|dragon|21|90|40|50
+eluetuk|wizard|24|50|70|30
+tuki-fuodan|wizard|6|50|70|30

@@ -27,16 +27,16 @@ public class sodoku_solver {
             System.out.println(Arrays.toString(a));
         }
     }
-    public static boolean checker(int[][] grid) {
+    public static boolean checker(int[][] grid ,boolean IgnoreZeros) {
         //printArrayofIntArrays(grid);
         for (int[] l : grid) {
             HashSet<Integer> h = new HashSet<Integer>();
             int last = 0;
             for (int i : l) {
                 h.add(i);
-                if (h.size() == last && i != 0) {
-                    System.out.println("failed on horizontal check");
-                    System.out.println(Arrays.toString(l));
+                if (h.size() == last && (i != 0 && IgnoreZeros)) {
+                    //System.out.println("failed on horizontal check");
+                    //System.out.println(Arrays.toString(l));
                     return false;
                 }
                 last = h.size();
@@ -55,9 +55,9 @@ public class sodoku_solver {
             int last = 0;
             for (int i : l) {
                 h.add(i);
-                if (h.size() == last && i != 0) {
-                    System.out.println("failed on vertical check");
-                    System.out.println(Arrays.toString(l));
+                if (h.size() == last && (i != 0 && IgnoreZeros)) {
+                    //System.out.println("failed on vertical check");
+                    //System.out.println(Arrays.toString(l));
                     return false;
                 }
                 last = h.size();
@@ -70,9 +70,9 @@ public class sodoku_solver {
                 int last = 0;
                 for (int i : box) {
                     h.add(i);
-                    if (h.size() == last && i != 0) {
-                        System.out.println("failed on vertical check");
-                        System.out.println(Arrays.toString(box));
+                    if (h.size() == last && (i != 0 && IgnoreZeros)) {
+                        //System.out.println("failed on vertical check");
+                        //System.out.println(Arrays.toString(box));
                         return false;
                     }
                     last = h.size();
@@ -106,70 +106,18 @@ public class sodoku_solver {
         return out;
     }
     public static int[][] solver(int[][] grid) {
-        int[][] out = {{0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0} ,{0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0} ,{0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0} ,{0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0} ,{0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0} ,{0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0} ,{0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0} ,{0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0} ,{0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0} ,{0}};
-        LinkedList<int[]> zeros = new LinkedList<int[]>();
-        for (int x=0;x < 8;x++) {
-            for (int y = 0; y < 8; y++) {
-                if (grid[x][y] == 0) {
-                    int[] tmp = {x, y};
-                    zeros.add(tmp);
-                }
-            }
-        }
-        int[][] tempgrid = grid;
-        for (int[] z : zeros) {
-            tempgrid[z[0]][z[1]]++;
-            if (tempgrid[z[0]][z[1]] == 10) {
-                tempgrid[z[0]][z[1]] = 0;
-                int[] f = {0};
-                out[9] = f;
-                return out;
-            } else {
-                if (checker(tempgrid)) {
-                    int[][] g2 = solver(tempgrid);
-                    if (g2[9][0] == 1) {
-                        return g2;
-                    }
-                }
-            }
-        }
-        //Stack<int[][]> gamestates = new Stack<int[][]>();
-        //Stack<int[]> coords = new Stack<int[]>();
-        //LinkedList<int[]> zeros = new LinkedList<int[]>();
-        //for (int x=0;x < 8;x++) {
-        //    for (int y=0;y < 8;y++) {
-        //        if (grid[x][y] == 0) {
-        //            int[] tmp = {x ,y};
-        //            zeros.add(tmp);
-        //        }
-        //    }
-        //}
-        //int nums = 0;
-        //gamestates.push(grid);
-        //boolean done = false;
-        //while (!done) {
-        //    //this next bit needs to be recursive somehow...
-        //    int x = zeros.get(nums)[0];
-        //    int y = zeros.get(nums)[1];
-        //    grid[x][y]++;
-        //    if (grid[x][y] == 10) {
-        //        grid[x][y] = 0;
-        //        grid = gamestates.pop();
-        //    } else {
-        //        if (checker(grid)) {
-        //            int[][] g = solver(grid);
-        //        }
-        //    }
-        //    //code
-        //    nums++;
-        //}
+        int[][] out = {{}};
+        //temporary note : imitate recursion for now
+
+
         return out;
     }
     public static void main(String[] args) throws Exception {
         String gridstring = read("resources/Soduko2.txt");
         int[][] grid1 = importGrid(gridstring);
         System.out.println("starting... ");
-        solver(grid1);
+        int[][] grid2 = solver(grid1);
         System.out.println("done");
+        printArrayofIntArrays(grid2);
     }
 }
