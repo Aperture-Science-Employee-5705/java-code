@@ -7,7 +7,7 @@ import java.util.*;
 public class RPG {
     public static String nameGen() {
         Random rand = new Random();
-        String[] sylables = {"en" ,"da" ,"fu" ,"el" ,"kar" ,"tuk" ,"rar" ,"log" ,"dan" ,"a" ,"e" ,"i" ,"o" ,"u" ,"su" ,"se" ,"z" ,"guh" ,"ö" ,"ocr" ,"cer" ,"edig"};
+        String[] sylables = {"en" ,"da" ,"fu" ,"el" ,"kar" ,"tuk" ,"rar" ,"log" ,"dan" ,"a" ,"e" ,"i" ,"o" ,"u" ,"su" ,"se" ,"z" ,"guh" ,"ö" ,"ocr" ,"cer" ,"edig" ,"calli"};
         String out = sylables[rand.nextInt(18)];
         for (int x=0;x < rand.nextInt(6)+2;x++) {
             out += sylables[rand.nextInt(sylables.length)];
