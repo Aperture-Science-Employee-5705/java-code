@@ -37,7 +37,7 @@ public class game {
                 System.out.println(e);
             }
             for (String ln : data.split("\\n")) {
-                String[] tms = ln.split("( : )")[0].split("( vs )");
+                String[] tms = ln.split(" : ")[0].split(" vs ");
                 if (tms[0].equals(team) || tms[1].equals(team)) {
                     System.out.println(ln);
                 }
@@ -107,8 +107,29 @@ public class game {
 
             System.out.print("view leaderboards? (y/n) : ");
             if (scan.nextLine().equals("y")) {
+                String data = "";
+                try {
+                    data = "";
+                    FileReader readF = new FileReader("resources/hockey/results.txt");
+                    BufferedReader buffR = new BufferedReader(readF);
+                    Scanner scan2 = new Scanner(buffR);
+                    while (scan.hasNextLine()) {
+                        data += scan.nextLine();
+                    }
+                } catch (Exception e) {
+                    System.out.println(e);
+                }                    
                 //TODO sort by num of goals (top 3) (ascending)
                 //TODO sort by num of goals conceded (top 5) (descending)
+                int team1goals = 0;
+                int team2goals = 0;
+                for (String ln : data.split("\\n")) {
+                    if (ln.split(" : ")[0].split(" vs ")[0].equals("team1")) {
+                        team1goals += 
+                    } else {
+                        
+                    }
+                }
             }
         }
     }
