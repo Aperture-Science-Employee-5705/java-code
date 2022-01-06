@@ -120,16 +120,33 @@ public class game {
                     System.out.println(e);
                 }                    
                 //TODO sort by num of goals (top 3) (ascending)
-                //TODO sort by num of goals conceded (top 5) (descending)
-                int team1goals = 0;
+                int team1goals = 0;//i only have two teams right now ("team1" and "team2") and as it says below im hardcoding it because ive run out of time
                 int team2goals = 0;
-                for (String ln : data.split("\\n")) {
+                for (String ln : data.split("\\n")) {//dont have time to do this the right way ,so im gonna have to hard code it
                     if (ln.split(" : ")[0].split(" vs ")[0].equals("team1")) {
-                        team1goals += 
+                        team1goals += Integer.parseInt(ln.split(" : ")[1].split(" - ")[0]);
+                        team2goals += Integer.parseInt(ln.split(" : ")[1].split(" - ")[1]);
                     } else {
-                        
+                        team1goals += Integer.parseInt(ln.split(" : ")[1].split(" - ")[1]);
+                        team2goals += Integer.parseInt(ln.split(" : ")[1].split(" - ")[0]);
                     }
                 }
+                String out = ((team1goals>team2goals)?"team1":"team2") + " : " ((team1goals>team2goals)?team1goals:team2goals) + "\n" + ((team1goals>team2goals)?"team2":"team1") + " : " ((team1goals>team2goals)?team2goals:team1goals);
+                System.out.println(out);
+                System.out.print("save file? (y/n) : ");
+                if (scan.nextLine().equals("y")) {
+                    System.out.print("filename : ");
+                    fn = scan.nextLine();
+                    try {
+                        FileWriter writeF = new FileWriter("resources/hockey/" + fn + ".txt");
+                        BufferedWriter buffW = new BufferedWriter(writeF);
+                        buffW.write(data + "\n" + (Teams[0].name + " vs " + Teams[1].name + " : " + score[0] + " - " + score[1]));
+                        buffW.close();
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
+                }
+                //TODO sort by num of goals (top 3) (ascending)
             }
         }
     }
