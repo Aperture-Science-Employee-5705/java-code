@@ -122,7 +122,7 @@ public class game {
                 //TODO sort by num of goals (top 3) (ascending)
                 int team1goals = 0;//i only have two teams right now ("team1" and "team2") and as it says below im hardcoding it because ive run out of time
                 int team2goals = 0;
-                for (String ln : data.split("\\n")) {//dont have time to do this the right way ,so im gonna have to hard code it
+                for (String ln : data.split("\\n")) {//dont have time to do this the right way ,so im gonna have to hardcode it
                     if (ln.split(" : ")[0].split(" vs ")[0].equals("team1")) {
                         team1goals += Integer.parseInt(ln.split(" : ")[1].split(" - ")[0]);
                         team2goals += Integer.parseInt(ln.split(" : ")[1].split(" - ")[1]);
