@@ -146,7 +146,8 @@ public class game {
                         System.out.println(e);
                     }
                 }
-                //TODO sort by num of goals (top 3) (ascending)
+                //TODO sort by num of conceded goals (top 3) (descending)
+                
             }
         }
     }
