@@ -7,8 +7,11 @@ import java.util.*;
 public class RPG {
     public static String nameGen() {
         Random rand = new Random();
-        String[] sylables = {"en" ,"da" ,"fu" ,"el" ,"kar" ,"tuk" ,"rar" ,"log" ,"dan" ,"a" ,"e" ,"i" ,"o" ,"u" ,"su" ,"se" ,"z" ,"guh" ,"ö" ,"ocr" ,"cer" ,"edig" ,"calli" ,"bae"};
+        String[] sylables = {"en" ,"da" ,"fu" ,"el" ,"kar" ,"tuk" ,"rar" ,"log" ,"dan" ,"a" ,"e" ,"i" ,"o" ,"u" ,"su" ,"se" ,"z" ,"guh" ,"ö" ,"ocr" ,"cer" ,"edig"};
         String out = sylables[rand.nextInt(18)];
+        if (rand.nextInt(200) == 0) {
+            return "bran bersk";//easter egg
+        }
         for (int x=0;x < rand.nextInt(6)+2;x++) {
             out += sylables[rand.nextInt(sylables.length)];
             if (rand.nextInt(4) == 0) {
@@ -94,23 +97,30 @@ public class RPG {
                 }
             } else {
                 if (command.split(" ")[0].equals("rem")) {
-                    boolean contains = false;
-                    int index = 0;
-                    int c = 0;
-                    for (character x : characters) {
-                        if (x.getInfo()[0].equals(command.split(" ")[1])) {
-                            index = c;
-                            contains = true;
-                            break;
+                    if (command.split(" ")[1].equals("all")) {
+                        System.out.println("removing all characters from team... ");
+                        while (characters.size() != 0) {
+                            characters.remove(0);
                         }
-                        c++;
-                    }
-                    if (contains) {
-                        characters.remove(index);
-                        System.out.println("successfully removed " + command.split(" ")[1] + "!");
                     } else {
-                        System.out.println("error! character not found!\n");
-                        scan.nextLine();
+                        boolean contains = false;
+                        int index = 0;
+                        int c = 0;
+                        for (character x : characters) {
+                            if (x.getInfo()[0].equals(command.split(" ")[1])) {
+                                index = c;
+                                contains = true;
+                                break;
+                            }
+                            c++;
+                        }
+                        if (contains) {
+                            characters.remove(index);
+                            System.out.println("successfully removed " + command.split(" ")[1] + "!");
+                        } else {
+                            System.out.println("error! character not found!\n");
+                            scan.nextLine();
+                        }
                     }
                 } else {
                     if (command.split(" ")[0].equals("mod")) {
@@ -143,7 +153,7 @@ public class RPG {
                             }
                         } else {
                             if (command.split(" ")[0].equals("help")) {
-                                System.out.println("commands : \nadd  - adds a new character                             (add <character type>)\nrem  - removes a character from the team                (rem <character name>)\nmod  - modifies a character's stat                      (mod <character name> <stat> <amnt>)\ngen  - generates characters for your team until its full\nteam - displays entire team\nexp  - exports data to a file                          (exp <filename>)\nimp  - imports data from a file                        (imp <filename>)\nhelp - displays commands\ndone  - exits program\n\n");
+                                System.out.println("commands : \nadd  - adds a new character                             (add <character type>)\nrem  - removes a character from the team                (rem <character name>)\nmod  - modifies a character's stat                      (mod <character name> <stat> <amnt>)\ngen  - generates characters for your team until its full\nteam - displays entire team\nexp  - exports data to a file                           (exp <filename>)\nimp  - imports data from a file                         (imp <filename>)\nhelp - displays commands\ndone  - exits program\n\n");
                             } else {
                                 if (command.split(" ")[0].equals("gen")) {
                                     String[] types = {"barbarian" ,"elf" ,"wizard" ,"dragon" ,"knight"};

@@ -1,10 +1,1 @@
-elzsu-ufu|barbarian|16|70|20|50
-aen-ocr-io-see|wizard|22|50|70|30
-logediglograr|knight|13|60|10|60
-logzkarkareleloge|wizard|9|50|70|30
-enekar-kara|barbarian|12|70|20|50
-iocrrarrar-dan|dragon|8|90|40|50
-oz-dankar-ediglog|dragon|17|90|40|50
-elsuiii|knight|9|60|10|60
-seocröu|dragon|10|90|40|50
-logöse-fu|dragon|12|90|40|50
+oguhöcer-zfu:wizard:19:50:70:30;oguh-karcerau:knight:13:60:10:60;rarelguhozu:elf:19:30:60:10;daelenelcerda:wizard:18:50:70:30;ozcerfuse-i:knight:11:60:10:60;bran bersk:wizard:6:50:70:30;enraroguh-e:knight:23:60:10:60;alogu-u-ocrrar:barbarian:13:70:20:50;euo-e:barbarian:22:70:20:50;tukulogendatukocrkar:wizard:23:50:70:30
