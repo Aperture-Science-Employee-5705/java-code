@@ -107,7 +107,8 @@ public class game {
 
             System.out.print("view leaderboards? (y/n) : ");
             if (scan.nextLine().equals("y")) {
-                
+                //TODO sort by num of goals (top 3) (ascending)
+                //TODO sort by num of goals conceded (top 5) (descending)
             }
         }
     }
