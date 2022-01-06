@@ -140,7 +140,7 @@ public class game {
                     try {
                         FileWriter writeF = new FileWriter("resources/hockey/" + fn + ".txt");
                         BufferedWriter buffW = new BufferedWriter(writeF);
-                        buffW.write(data + "\n" + (Teams[0].name + " vs " + Teams[1].name + " : " + score[0] + " - " + score[1]));
+                        buffW.write(out);
                         buffW.close();
                         System.out.println("file saved!");
                     } catch (Exception e) {
@@ -155,6 +155,7 @@ public class game {
     public static void play() {
         boolean player1attack = false;
         int[] score = {0 ,0};
+        int[] conceded = {0 ,0};
         boolean done = false;
         boolean valid = false;
         int c = 0;
@@ -193,6 +194,7 @@ public class game {
                 int r = rand.nextInt(3);
                 if (player2.stats()[1]-player1.stats()[0]+r < 0) {
                     System.out.println("saved!");
+                    conceded[1]++;
                 } else {
                     System.out.println("scored!");
                     score[0]++;
@@ -201,6 +203,7 @@ public class game {
                 int r = rand.nextInt(3);
                 if (player1.stats()[1]-player2.stats()[0]+r < 0) {
                     System.out.println("saved!");
+                    conceded[0]++;
                 } else {
                     System.out.println("scored!");
                     score[1]++;
@@ -240,7 +243,7 @@ public class game {
         try {
             FileWriter writeF = new FileWriter("resources/hockey/results.txt");
             BufferedWriter buffW = new BufferedWriter(writeF);
-            buffW.write(data + "\n" + (Teams[0].name + " vs " + Teams[1].name + " : " + score[0] + " - " + score[1]));
+            buffW.write(data + "\n" + (Teams[0].name + " vs " + Teams[1].name + " : " + score[0] + " - " + score[1] + " : " + conceded[0] + " - " + conceded[1]));
             buffW.close();
         } catch (Exception e) {
             System.out.println(e);
