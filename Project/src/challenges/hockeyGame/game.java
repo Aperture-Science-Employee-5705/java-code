@@ -133,6 +133,21 @@ public class game {
                 }
                 String out = ((team1goals>team2goals)?"team1":"team2") + " : " ((team1goals>team2goals)?team1goals:team2goals) + "\n" + ((team1goals>team2goals)?"team2":"team1") + " : " ((team1goals>team2goals)?team2goals:team1goals);
                 System.out.println(out);
+                //TODO sort by num of conceded goals (top 3) (descending)
+                int team1goals = 0;//i only have two teams right now ("team1" and "team2") and as it says below im hardcoding it because ive run out of time
+                int team2goals = 0;
+                for (String ln : data.split("\\n")) {//dont have time to do this the right way ,so im gonna have to hardcode it
+                    if (ln.split(" : ")[0].split(" vs ")[0].equals("team1")) {
+                        team1goals += Integer.parseInt(ln.split(" : ")[1].split(" - ")[0]);
+                        team2goals += Integer.parseInt(ln.split(" : ")[1].split(" - ")[1]);
+                    } else {
+                        team1goals += Integer.parseInt(ln.split(" : ")[1].split(" - ")[1]);
+                        team2goals += Integer.parseInt(ln.split(" : ")[1].split(" - ")[0]);
+                    }
+                }
+                String out2 = ((team2goals>team1goals)?"team1":"team2") + " : " ((team2goals>team1goals)?team1goals:team2goals) + "\n" + ((team2goals>team1goals)?"team2":"team1") + " : " ((team2goals>team1goals)?team2goals:team1goals);
+                System.out.println(out);
+                
                 System.out.print("save file? (y/n) : ");
                 if (scan.nextLine().equals("y")) {
                     System.out.print("filename : ");
@@ -140,15 +155,13 @@ public class game {
                     try {
                         FileWriter writeF = new FileWriter("resources/hockey/" + fn + ".txt");
                         BufferedWriter buffW = new BufferedWriter(writeF);
-                        buffW.write(out);
+                        buffW.write(out + "\n\n" + out2);
                         buffW.close();
                         System.out.println("file saved!");
                     } catch (Exception e) {
                         System.out.println(e);
                     }
                 }
-                //TODO sort by num of conceded goals (top 3) (descending)
-                
             }
         }
     }
