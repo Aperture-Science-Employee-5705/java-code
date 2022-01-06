@@ -142,6 +142,7 @@ public class game {
                         BufferedWriter buffW = new BufferedWriter(writeF);
                         buffW.write(data + "\n" + (Teams[0].name + " vs " + Teams[1].name + " : " + score[0] + " - " + score[1]));
                         buffW.close();
+                        System.out.println("file saved!");
                     } catch (Exception e) {
                         System.out.println(e);
                     }
