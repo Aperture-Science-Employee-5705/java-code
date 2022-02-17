@@ -1,4 +1,8 @@
 package challenges.diary;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.net.StandardSocketOptions;
 import java.util.*;
 
@@ -14,6 +18,8 @@ public class diary {
         int day = 0;
         int time = 0;
         int counter = 0;
+        int currentYear = 22;
+        String filename;
         String input = "";
         while(!done) {
             System.out.print("enter command! >>> ");
@@ -155,8 +161,8 @@ public class diary {
                             for (event x : events) {
                                 if ((x.getStartMonth() == month) && (x.getStartDay() == day) && (x.getStartTime() == time)) {//if the timestamp is the same
                                     event e = x;
-                                    String timestamp = String.valueOf(x.getStartDay()) + "/" + String.valueOf(x.getStartMonth()) + " " + String.valueOf(x.getStartTime()) + ":00 until " + String.valueOf(x.getEndTime()) + ":00";
-                                    //constructs a timestamp in the format : "<day>/<month> <StartTime>:00 until <EndTime>:00"
+                                    String timestamp = String.valueOf(x.getStartDay()) + "/" + String.valueOf(x.getStartMonth()) + "/" + String.valueOf(currentYear) + " " + String.valueOf(x.getStartTime()) + ":00 until " + String.valueOf(x.getEndTime()) + ":00";
+                                    //constructs a timestamp in the format : "<day>/<month>/<currentYear> <StartTime>:00 until <EndTime>:00"
                                     System.out.println("[" + timestamp + "]\t:\t" + x.getName() + " : " + x.getInfo());//prints the event and its information
                                     break;
                                 }
@@ -199,8 +205,8 @@ public class diary {
                             for (diaryEntry x : entries) {
                                 if ((x.getMonth() == month) && (x.getDay() == day) && (x.getTime() == time)) {//if the timestamp is the same
                                     diaryEntry d = x;
-                                    String timestamp = String.valueOf(x.getDay()) + "/" + String.valueOf(x.getMonth()) + " " + String.valueOf(x.getTime()) + ":00";
-                                    //constructs a timestamp in the format : "<day>/<month> <StartTime>:0"
+                                    String timestamp = String.valueOf(x.getDay()) + "/" + String.valueOf(x.getMonth()) + "/" + String.valueOf(currentYear) + " " + String.valueOf(x.getTime()) + ":00";
+                                    //constructs a timestamp in the format : "<day>/<month>/<currentYear> <StartTime>:0"
                                     System.out.println("[" + timestamp + "]\t:\t" + x.getEntry());//prints the diaey entry and its information
                                     break;
                                 }
@@ -235,7 +241,7 @@ public class diary {
                             }
                             for (event x : events) {//loops over all the events
                                 String timestamp = String.valueOf(x.getStartDay()) + "/" + String.valueOf(x.getStartMonth()) + " " + String.valueOf(x.getStartTime()) + ":00 until " + String.valueOf(x.getEndTime()) + ":00";
-                                //constructs a timestamp in the format : "<day>/<month> <StartTime>:00 until <EndTime>:00"
+                                //constructs a timestamp in the format : "<day>/<month>/<currentYear> <StartTime>:00 until <EndTime>:00"
                                 System.out.println("[" + timestamp + "]\t:\t" + x.getName() + " : " + x.getInfo());//prints the event and its information
                             }
                             System.out.println("\n");
@@ -246,8 +252,8 @@ public class diary {
                                 break;
                             }
                             for (diaryEntry x : entries) {//loops over all the diary entries
-                                String timestamp = String.valueOf(x.getDay()) + "/" + String.valueOf(x.getMonth()) + " " + String.valueOf(x.getTime()) + ":00";
-                                //constructs a timestamp in the format : "<day>/<month> <StartTime>:00 until <EndTime>:00"
+                                String timestamp = String.valueOf(x.getDay()) + "/" + String.valueOf(x.getMonth()) + "/" + String.valueOf(currentYear) + " " + String.valueOf(x.getTime()) + ":00";
+                                //constructs a timestamp in the format : "<day>/<month>/<currentYear> <StartTime>:00 until <EndTime>:00"
                                 System.out.println("[" + timestamp + "]\t:\t" + x.getEntry());//prints the diary entry and its information
                             }
                             System.out.println("\n");
@@ -257,11 +263,91 @@ public class diary {
                     }
                     break;
                 case "help"://prints the help menu
-                    System.out.println("----------------------------------------------------------------------------\nHelp menu!\n\nhelp  : prints the help menu\ncreate : opens the create menu\ndelete : opens the deletion menu\nmodify : opens the modification menu\nview  : views calendar or diary entries\n\n");
+                    System.out.println("----------------------------------------------------------------------------\nHelp menu!\n\nhelp  : prints the help menu\ncreate : opens the create menu\ndelete : opens the deletion menu\nmodify : opens the modification menu\nview  : views calendar or diary entries\nsave  : allows you to save all events or diary entries to a file\nload  : allows you to load events and diary entries back from a file\n\n");
+                    break;
+                case "save":
+                    filename = "";
+                    String savestring = "";
+                    System.out.print("save diary or events? (diary/events) : ");
+                    switch (scan.nextLine()) {
+                        case "diary":
+                            System.out.print("enter filepath : ");
+                            filename = scan.nextLine();
+                            for (diaryEntry d : entries) {
+                                savestring += d.save() + "¬";//build up a string of encoded data that can be spilt back up and reloaded later
+                            }
+                            savestring = savestring.substring(0 ,savestring.length()-1);
+                            write(filename ,savestring);
+                            break;
+                        case "events":
+                            System.out.print("enter filepath : ");
+                            filename = scan.nextLine();
+                            for (event e : events){
+                                savestring += e.save() + "¬";//build up a string of encoded data that can be spilt back up and reloaded later
+                            }
+                            savestring = savestring.substring(0 ,savestring.length()-1);
+                            break;
+                        default:
+                            System.out.println("error ,invalid option!");
+                    }
+                    break;
+                case "load":
+                    filename = "";
+                    String file;
+                    System.out.print("save diary or events? (diary/events) : ");
+                    switch (scan.nextLine()) {
+                        case "diary":
+                            System.out.print("enter filepath : ");
+                            filename = scan.nextLine();
+                            file = read(filename);
+                            for (String code : file.split("¬")) {//run over each individual code in the file for each object
+                                diaryEntry d = new diaryEntry(0,0,0,"empty");
+                                d.load(code);//create an empty object and load in the code
+                                entries.add(d);
+                            }
+                            break;
+                        case "events":
+                            System.out.print("enter filepath : ");
+                            filename = scan.nextLine();
+                            file = read(filename);
+                            for (String code : file.split("¬")) {//run over each individual code in the file for each object
+                                event e = new event("none",0,0,0,0,"empty");
+                                e.load(code);//create an empty object and load in the code
+                                events.add(e);
+                            }
+                            break;
+                        default:
+                            System.out.println("error ,invalid option!");
+                    }
                     break;
                 default://unknown command
                     System.out.println("unknown command!");
             }
+        }
+    }
+    public static void write(String file ,String data) {
+        try {
+            FileWriter writeF = new FileWriter(file);
+            BufferedWriter buffW = new BufferedWriter(writeF);
+            buffW.write(data);
+            buffW.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    public static String read(String file) {
+        try {
+            String out = "";
+            FileReader readF = new FileReader(file);
+            BufferedReader buffR = new BufferedReader(readF);
+            Scanner scan = new Scanner(buffR);
+            while (scan.hasNextLine()) {
+                out += scan.nextLine();
+            }
+            return out;
+        } catch (Exception e) {
+            System.out.println(e);
+            return e.getMessage();
         }
     }
 }

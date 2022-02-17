@@ -67,4 +67,19 @@ public class event {
         return EventInfo;
     }
 
+
+    public String save(){
+        return EventName + "`" + String.valueOf(StartMonth) + "`" + String.valueOf(StartDay) + "`" + String.valueOf(StartTime) + "`" + String.valueOf(EndTime) + "`" + EventInfo;
+        //returns a string containing all the internal data that can be parsed when read back from a file
+    }
+    public void load(String data) {
+        //parses the string that the above function outputs and stores the data in the object
+        String[] values = data.split("`");
+        EventName = values[0];
+        StartMonth = Integer.parseInt(values[1]);
+        StartDay = Integer.parseInt(values[2]);
+        StartTime = Integer.parseInt(values[3]);
+        EndTime = Integer.parseInt(values[4]);
+        EventInfo = values[5];
+    }
 }

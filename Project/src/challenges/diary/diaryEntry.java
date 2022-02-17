@@ -43,4 +43,17 @@ public class diaryEntry {
     public String getEntry(){//allows you to get the enrty for that day
         return entry;
     }
+
+    public String save(){
+        return String.valueOf(month) + "`" + String.valueOf(day) + "`" + String.valueOf(time) + "`" + entry;
+        //returns a string containing all the internal data that can be parsed when read back from a file
+    }
+    public void load(String data) {
+        //parses the string that the above function outputs and stores the data in the object
+        String[] values = data.split("`");
+        month = Integer.parseInt(values[0]);
+        day = Integer.parseInt(values[1]);
+        time = Integer.parseInt(values[2]);
+        entry = values[3];
+    }
 }
