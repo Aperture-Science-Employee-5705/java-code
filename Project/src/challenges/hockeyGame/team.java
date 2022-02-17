@@ -6,7 +6,7 @@ import java.io.*;
 import java.util.concurrent.ExecutionException;
 
 public class team {
-    public String name;
+    private String name;
     private player[] players = {new player("None" ,0 ,0) ,new player("None" ,0 ,0) ,new player("None" ,0 ,0) ,new player("None" ,0 ,0) ,new player("None" ,0 ,0) ,new player("None" ,0 ,0)};
 
     public team() {
@@ -82,11 +82,11 @@ public class team {
 
     public player getPlayer(String name) throws Exception{
         Scanner scan = new Scanner(System.in);
-        player Cplayer = new player("" ,-1 ,-1);
+        player Cplayer = new player("" ,0 ,0);
 
-        for (player p : this.players) {
+        for (player p : players) {
             if (p.name().equals(name)) {
-                return p;
+                return Cplayer;
             }
         }
         System.out.println("could not find player!");
